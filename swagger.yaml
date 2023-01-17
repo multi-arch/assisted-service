@@ -4390,6 +4390,7 @@ definitions:
         type: string
         x-nullable: false
         default: 'x86_64'
+        enum: ['x86_64', 'aarch64', 'arm64','ppc64le','s390x','multi']
         description: The CPU architecture of the image (x86_64/arm64/etc).
       disk_encryption:
         $ref: '#/definitions/disk-encryption'
@@ -4921,6 +4922,7 @@ definitions:
         type: string
         x-nullable: false
         default: 'x86_64'
+        enum: ['x86_64', 'aarch64', 'arm64','ppc64le','s390x','multi']
         description: The CPU architecture of the image (x86_64/arm64/etc).
       ignition_endpoint:
         $ref: '#/definitions/ignition-endpoint'
@@ -6345,6 +6347,7 @@ definitions:
       cpu_architecture:
         type: string
         default: "x86_64"
+        enum: ['x86_64', 'aarch64', 'arm64','ppc64le','s390x','multi']
         description: The CPU architecture of the image (x86_64/arm64/etc).
         x-go-custom-tag: gorm:"default:'x86_64'"
       url:
@@ -6373,6 +6376,7 @@ definitions:
       cpu_architecture:
         type: string
         default: "x86_64"
+        enum: ['x86_64', 'aarch64', 'arm64','ppc64le','s390x','multi']
         description: (DEPRECATED) The CPU architecture of the image (x86_64/arm64/etc).
         x-go-custom-tag: gorm:"default:'x86_64'"
       cpu_architectures:
@@ -6566,6 +6570,7 @@ definitions:
         type: string
         x-nullable: false
         default: 'x86_64'
+        enum: ['x86_64', 'aarch64', 'arm64','ppc64le','s390x','multi']
         description: The CPU architecture of the image (x86_64/arm64/etc).
       kernel_arguments:
         type: string
@@ -6650,6 +6655,7 @@ definitions:
         type: string
         x-nullable: false
         default: 'x86_64'
+        enum: ['x86_64', 'aarch64', 'arm64','ppc64le','s390x','multi']
         description: The CPU architecture of the image (x86_64/arm64/etc).
       kernel_arguments:
         $ref: '#/definitions/kernel_arguments'

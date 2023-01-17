@@ -10,6 +10,8 @@ spec:
     - run-postgresql
     image: quay.io/centos7/postgresql-12-centos7:latest
     name: db
+    ports:
+    - hostPort: 5432
     envFrom:
     - configMapRef:
         name: config
@@ -27,7 +29,8 @@ spec:
     envFrom:
     - configMapRef:
         name: config
-  - image: quay.io/edge-infrastructure/assisted-service:latest
+  #- image: quay.io/edge-infrastructure/assisted-service:latest
+  - image: quay.io/jeffdyoung/assisted-service:arm
     name: service
     ports:
     - hostPort: 8090

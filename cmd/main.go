@@ -231,6 +231,12 @@ func main() {
 	}
 	failOnError(json.Unmarshal([]byte(Options.OsImages), &osImagesArray),
 		"Failed to parse OS_IMAGES json %s", Options.OsImages)
+
+	//Normalize models.OsImage.CPUArchitecture from aarch64 -> arm64 (for now)
+	for i := 0; i < len(osImagesArray); i++ {
+		*osImagesArray[i].CPUArchitecture = common.NormalizeCPUArchitecture(*osImagesArray[i].CPUArchitecture)
+	}
+
 	osImages, err := versions.NewOSImages(osImagesArray)
 	failOnError(err, "Failed to initialize OSImages")
 
@@ -241,6 +247,14 @@ func main() {
 	} else {
 		failOnError(json.Unmarshal([]byte(Options.ReleaseImages), &releaseImagesArray),
 			"Failed to parse RELEASE_IMAGES json %s", Options.ReleaseImages)
+		//Normalize models.ReleaseImage.CPUArchitecture aarch64 -> arm64 (for now)
+		for i := 0; i < len(releaseImagesArray); i++ {
+			*releaseImagesArray[i].CPUArchitecture = common.NormalizeCPUArchitecture(*releaseImagesArray[i].CPUArchitecture)
+			//Normalize models.ReleaseImage.CPUArchitectures aarch64 -> arm64 (for now)
+			for j := 0; j < len(releaseImagesArray[i].CPUArchitectures); j++ {
+				releaseImagesArray[i].CPUArchitectures[j] = common.NormalizeCPUArchitecture(releaseImagesArray[i].CPUArchitectures[j])
+			}
+		}
 	}
 
 	log.Println(fmt.Sprintf("Started service with OS images %v, Release images %v",

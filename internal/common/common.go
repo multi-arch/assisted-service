@@ -43,6 +43,7 @@ const (
 	FamilyIPv6 int32 = 6
 
 	X86CPUArchitecture     = "x86_64"
+	AMD64CPUArchitecture   = "amd64"
 	DefaultCPUArchitecture = X86CPUArchitecture
 	ARM64CPUArchitecture   = "arm64"
 	// rchos is sending aarch64 and not arm as arm64 arch
@@ -91,6 +92,17 @@ const NMDebugModeConf = `
 [logging]
 domains=ALL:DEBUG
 `
+
+func NormalizeCPUArchitecture(Arch string) string {
+	switch Arch {
+	case AMD64CPUArchitecture:
+		return X86CPUArchitecture
+	case AARCH64CPUArchitecture:
+		return ARM64CPUArchitecture
+	default:
+		return Arch
+	}
+}
 
 func AllStrings(vs []string, f func(string) bool) bool {
 	for _, v := range vs {

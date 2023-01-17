@@ -220,11 +220,10 @@ func (r *release) GetReleaseArchitecture(log logrus.FieldLogger, releaseImage st
 			res, _ := jsonparser.GetString(value, "platform", "architecture")
 
 			// Convert architecture naming to supported values
-			if res == "amd64" {
-				res = common.DefaultCPUArchitecture
-			} else if res == "" {
+			if res == "" {
 				return
 			}
+			res = common.NormalizeCPUArchitecture(res)
 
 			multiarchContent = append(multiarchContent, res)
 		}, "manifests")
@@ -245,10 +244,7 @@ func (r *release) GetReleaseArchitecture(log logrus.FieldLogger, releaseImage st
 	}
 
 	// Convert architecture naming to supported values
-	switch architecture {
-	case "amd64":
-		architecture = common.DefaultCPUArchitecture
-	}
+	architecture = common.NormalizeCPUArchitecture(architecture)
 
 	return []string{architecture}, nil
 }
